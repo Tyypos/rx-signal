@@ -144,8 +144,7 @@ export default function AiAnalysis({ analysis, loading, drug }) {
       {/* Panel body */}
       <div
         ref={panelRef}
-        className="flex-1 overflow-y-auto"
-        style={{ maxHeight: "calc(100vh - 200px)" }}
+        className="flex-1"
       >
         {loading ? (
           <LoadingSkeleton />

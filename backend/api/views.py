@@ -92,7 +92,7 @@ def _fetch_fda_events(drug: str) -> list[dict]:
     return [_parse_event(r) for r in data.get("results", [])]
 
 
-def _build_gemini_prompt(drug: str, events: list[dict]) -> str:
+def _build_analysis_prompt(drug: str, events: list[dict]) -> str:
     reaction_counts: dict[str, int] = {}
     outcomes: dict[str, int] = {}
     ages = []
@@ -192,7 +192,7 @@ class AdverseEventsView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        prompt = _build_gemini_prompt(drug, events)
+        prompt = _build_analysis_prompt(drug, events)
         try:
             ai_analysis = _call_groq(prompt)
         except Exception:

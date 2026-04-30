@@ -97,35 +97,30 @@ export default function App() {
                             </div>
                         )}
 
-                        {/* Two-panel layout */}
-                        <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6">
-                            {/* Left: event cards */}
-                            <div className="space-y-4">
-                                {loading ? (
-                                    Array.from({ length: 4 }).map((_, i) => (
-                                        <SkeletonCard key={i} />
-                                    ))
-                                ) : error ? (
-                                    <ErrorState message={error} />
-                                ) : hasResults ? (
-                                    data.events.map((event, i) => (
-                                        <EventCard
-                                            key={i}
-                                            event={event}
-                                            index={i}
-                                        />
-                                    ))
-                                ) : null}
-                            </div>
+                        {/* AI analysis — full width */}
+                        <div className="mb-6">
+                            <AiAnalysis
+                                analysis={data?.ai_analysis}
+                                loading={loading}
+                                drug={data?.drug}
+                            />
+                        </div>
 
-                            {/* Right: AI analysis */}
-                            <div className="xl:sticky xl:top-6 xl:self-start">
-                                <AiAnalysis
-                                    analysis={data?.ai_analysis}
-                                    loading={loading}
-                                    drug={data?.drug}
-                                />
-                            </div>
+                        {/* Event cards grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                            {loading ? (
+                                Array.from({ length: 6 }).map((_, i) => (
+                                    <SkeletonCard key={i} />
+                                ))
+                            ) : error ? (
+                                <div className="col-span-full">
+                                    <ErrorState message={error} />
+                                </div>
+                            ) : hasResults ? (
+                                data.events.map((event, i) => (
+                                    <EventCard key={i} event={event} index={i} />
+                                ))
+                            ) : null}
                         </div>
                     </section>
                 )}
