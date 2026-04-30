@@ -29,4 +29,4 @@ RUN cd backend && python3 manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-CMD cd backend && gunicorn rxsignal.wsgi --workers 2 --bind 0.0.0.0:$PORT --timeout 60
+CMD ["/bin/sh", "-c", "cd backend && gunicorn rxsignal.wsgi --workers 2 --bind 0.0.0.0:$PORT --timeout 60"]
