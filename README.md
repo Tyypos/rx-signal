@@ -2,7 +2,7 @@
 
 **AI-powered FDA adverse drug event explorer.**
 
-Search any drug name to instantly surface FDA adverse event reports and receive a plain-English clinical analysis powered by Google Gemini — all in a polished, dark-themed interface.
+Search any drug name to instantly surface FDA adverse event reports and receive a plain-English clinical analysis powered by Groq — all in a polished, dark-themed interface.
 
 🔗 **Live demo:** _coming soon_
 
@@ -22,7 +22,7 @@ Search any drug name to instantly surface FDA adverse event reports and receive 
 |-----------|-------------------------------------------------|
 | Backend   | Python · Django 4.2 · Django REST Framework     |
 | Frontend  | React 18 · Vite · Tailwind CSS                  |
-| AI        | Google Gemini 1.5 Flash (`google-generativeai`) |
+| AI        | Groq · Llama 3.1 8B Instant (`groq`)            |
 | Data      | openFDA Drug Event API (no key required)        |
 | Deploy    | Railway (backend) · Static files via WhiteNoise |
 
@@ -40,7 +40,7 @@ rx-signal/
 │   │   ├── urls.py
 │   │   └── wsgi.py
 │   └── api/               # Single Django app
-│       ├── views.py        # openFDA fetch + Gemini analysis
+│       ├── views.py        # openFDA fetch + Groq analysis
 │       └── urls.py
 ├── frontend/
 │   ├── src/
@@ -67,7 +67,7 @@ rx-signal/
 
 - Python 3.11+
 - Node.js 18+
-- A [Google Gemini API key](https://aistudio.google.com/app/apikey) (free tier works)
+- A [Groq API key](https://console.groq.com/keys) (free tier works)
 
 ### 1 — Clone and configure environment
 
@@ -75,7 +75,7 @@ rx-signal/
 git clone https://github.com/your-username/rx-signal.git
 cd rx-signal
 cp .env.example .env
-# Edit .env and set GEMINI_API_KEY=your_actual_key
+# Edit .env and set GROQ_API_KEY=your_actual_key
 ```
 
 ### 2 — Backend
@@ -111,7 +111,7 @@ The Vite dev server proxies `/api/*` to `localhost:8000` automatically.
 
 | Variable              | Required | Description                                         |
 |-----------------------|----------|-----------------------------------------------------|
-| `GEMINI_API_KEY`      | Yes      | Google Gemini API key for AI analysis               |
+| `GROQ_API_KEY`        | Yes      | Groq API key for AI analysis                        |
 | `DJANGO_SECRET_KEY`   | No       | Django secret key (auto-generated in dev)           |
 | `DEBUG`               | No       | `True` in dev, `False` in production (default True) |
 | `ALLOWED_HOSTS`       | No       | Comma-separated hostnames for Django                |
