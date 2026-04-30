@@ -3,6 +3,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIST = BASE_DIR.parent / "frontend" / "dist"
 load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get(
@@ -34,7 +35,7 @@ ROOT_URLCONF = "rxsignal.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "templates", FRONTEND_DIST],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -57,6 +58,10 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Serve the React dist folder at the root so /assets/*, /favicon.svg, etc.
+# match the paths Vite embeds into index.html
+WHITENOISE_ROOT = FRONTEND_DIST
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
